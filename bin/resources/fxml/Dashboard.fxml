@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.watercalculator.controllers.DashboardController"
+            styleClass="root-pane"
+            prefWidth="1100" prefHeight="700">
+
+    <!-- TOP NAV BAR -->
+    <top>
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="12" bottom="12" left="25" right="25"/></padding>
+            <Text text="💧 WaterCalculator" styleClass="nav-logo"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Text fx:id="villeText" styleClass="nav-ville"/>
+            <Text fx:id="welcomeText" styleClass="nav-welcome"/>
+            <Button text="🔄 Actualiser" styleClass="btn-nav" onAction="#handleRefresh"/>
+            <Button fx:id="logoutBtn" text="🚪 Déconnexion" styleClass="btn-nav-danger" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="200" spacing="10">
+            <padding><Insets top="30" bottom="30" left="15" right="15"/></padding>
+            <Label text="NAVIGATION" styleClass="sidebar-section-title"/>
+            <Button text="📊 Dashboard" styleClass="btn-sidebar-active" maxWidth="170"/>
+            <Button fx:id="calculerBtn" text="🧮 Calculateur" styleClass="btn-sidebar"
+                    onAction="#handleCalculer" maxWidth="170"/>
+            <Separator/>
+            <Label text="INFO" styleClass="sidebar-section-title"/>
+            <Label text="🌍 Norme OMS :" styleClass="sidebar-info-label"/>
+            <Label text="50 L/j (domestique)" styleClass="sidebar-info-value"/>
+            <Label text="💡 Conseil du jour :" styleClass="sidebar-info-label"/>
+            <Label text="Fermez le robinet pendant le brossage des dents !" styleClass="sidebar-tip" wrapText="true"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="20">
+                <padding><Insets top="25" bottom="25" left="25" right="25"/></padding>
+
+                <!-- STAT CARDS ROW -->
+                <HBox spacing="20">
+                    <!-- Consommation du jour -->
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="5">
+                        <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                        <Text text="💧 Aujourd'hui" styleClass="stat-card-title"/>
+                        <Text fx:id="totalJourText" text="0.0 L" styleClass="stat-card-value-blue"/>
+                        <Text fx:id="statusText" styleClass="stat-card-status"/>
+                    </VBox>
+
+                    <!-- Progress -->
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10">
+                        <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                        <Text text="📏 Norme journalière" styleClass="stat-card-title"/>
+                        <ProgressBar fx:id="progressBar" progress="0" maxWidth="160" prefHeight="18"
+                                     styleClass="progress-bar-custom"/>
+                        <Label fx:id="progressLabel" text="0% de 150 L" styleClass="stat-card-subtitle"/>
+                    </VBox>
+
+                    <!-- Quick action -->
+                    <VBox styleClass="stat-card-green" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10">
+                        <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                        <Text text="➕ Nouvelle Saisie" styleClass="stat-card-title-white"/>
+                        <Text text="Enregistrez votre&#10;consommation maintenant" styleClass="stat-card-subtitle-white" textAlignment="CENTER"/>
+                        <Button text="Calculer →" styleClass="btn-white" onAction="#handleCalculer"/>
+                    </VBox>
+                </HBox>
+
+                <!-- CHARTS ROW -->
+                <HBox spacing="20">
+                    <VBox styleClass="chart-card" HBox.hgrow="ALWAYS">
+                        <BarChart fx:id="barChart" prefHeight="250">
+                            <xAxis><CategoryAxis label="Date"/></xAxis>
+                            <yAxis><NumberAxis label="Litres"/></yAxis>
+                        </BarChart>
+                    </VBox>
+                    <VBox styleClass="chart-card" prefWidth="320">
+                        <PieChart fx:id="pieChart" prefHeight="250"/>
+                    </VBox>
+                </HBox>
+
+                <!-- HISTORY TABLE -->
+                <VBox styleClass="table-card" spacing="10">
+                    <Label text="📋 Historique des consommations" styleClass="section-title"/>
+                    <TableView fx:id="historyTable" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+                            <TableColumn fx:id="colQuantite" text="Quantité (L)" prefWidth="130"/>
+                            <TableColumn fx:id="colDate" text="Date" prefWidth="120"/>
+                            <TableColumn fx:id="colReco" text="Recommandation" prefWidth="400"/>
+                        </columns>
+                        <placeholder><Label text="Aucune donnée. Commencez par calculer votre consommation !"/></placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

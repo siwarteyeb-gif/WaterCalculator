@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.watercalculator.controllers.LoginController"
+           styleClass="root-pane"
+           prefWidth="900" prefHeight="600">
+
+    <HBox>
+        <!-- LEFT PANEL -->
+        <VBox styleClass="left-panel" prefWidth="420" alignment="CENTER" spacing="15">
+            <padding><Insets top="60" bottom="60" left="50" right="50"/></padding>
+
+            <Text text="💧" styleClass="logo-icon"/>
+            <Text text="WaterCalculator" styleClass="app-title"/>
+            <Text text="Gérez votre consommation d'eau&#10;pour un avenir durable." styleClass="app-subtitle"
+                  textAlignment="CENTER"/>
+
+            <VBox spacing="5" style="-fx-margin-top: 30;">
+                <Text text="🌍 Contexte Tunisien" styleClass="feature-title"/>
+                <Text text="✅  Calcul selon 4 usages" styleClass="feature-item"/>
+                <Text text="✅  Comparaison normes OMS" styleClass="feature-item"/>
+                <Text text="✅  Recommandations personnalisées" styleClass="feature-item"/>
+                <Text text="✅  Tableaux de bord visuels" styleClass="feature-item"/>
+            </VBox>
+        </VBox>
+
+        <!-- RIGHT PANEL -->
+        <VBox styleClass="right-panel" prefWidth="480" alignment="CENTER" spacing="18">
+            <padding><Insets top="60" bottom="60" left="60" right="60"/></padding>
+
+            <Text text="Connexion" styleClass="form-title"/>
+            <Text text="Accédez à votre espace personnel" styleClass="form-subtitle"/>
+
+            <VBox spacing="5" maxWidth="340">
+                <Label text="📧 Email" styleClass="field-label"/>
+                <TextField fx:id="emailField" promptText="votre@email.com" styleClass="text-field-custom"/>
+            </VBox>
+
+            <VBox spacing="5" maxWidth="340">
+                <Label text="🔒 Mot de passe" styleClass="field-label"/>
+                <PasswordField fx:id="passwordField" promptText="••••••••" styleClass="text-field-custom"/>
+            </VBox>
+
+            <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" maxWidth="340"/>
+
+            <Button fx:id="loginBtn" text="Se connecter" styleClass="btn-primary"
+                    onAction="#handleLogin" maxWidth="340"/>
+
+            <Separator maxWidth="340"/>
+
+            <HBox alignment="CENTER" spacing="8">
+                <Label text="Pas encore de compte ?" styleClass="link-hint"/>
+                <Button fx:id="registerBtn" text="S'inscrire" styleClass="btn-link"
+                        onAction="#handleGoRegister"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</StackPane>

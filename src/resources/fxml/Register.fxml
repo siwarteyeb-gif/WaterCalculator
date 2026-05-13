@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.watercalculator.controllers.RegisterController"
+           styleClass="root-pane"
+           prefWidth="900" prefHeight="650">
+
+    <HBox>
+        <!-- LEFT PANEL -->
+        <VBox styleClass="left-panel" prefWidth="350" alignment="CENTER" spacing="20">
+            <padding><Insets top="60" bottom="60" left="40" right="40"/></padding>
+            <Text text="💧" styleClass="logo-icon"/>
+            <Text text="WaterCalculator" styleClass="app-title"/>
+            <Text text="Rejoignez la communauté&#10;éco-responsable tunisienne." styleClass="app-subtitle" textAlignment="CENTER"/>
+        </VBox>
+
+        <!-- RIGHT PANEL -->
+        <VBox styleClass="right-panel" prefWidth="550" alignment="CENTER" spacing="14">
+            <padding><Insets top="40" bottom="40" left="60" right="60"/></padding>
+
+            <Text text="Créer un compte" styleClass="form-title"/>
+            <Text text="Commencez à suivre votre consommation" styleClass="form-subtitle"/>
+
+            <HBox spacing="15">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Nom" styleClass="field-label"/>
+                    <TextField fx:id="nomField" promptText="Ben Ali" styleClass="text-field-custom"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Prénom" styleClass="field-label"/>
+                    <TextField fx:id="prenomField" promptText="Mohamed" styleClass="text-field-custom"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="4" maxWidth="430">
+                <Label text="📧 Email" styleClass="field-label"/>
+                <TextField fx:id="emailField" promptText="votre@email.com" styleClass="text-field-custom"/>
+            </VBox>
+
+            <VBox spacing="4" maxWidth="430">
+                <Label text="🏙️ Ville" styleClass="field-label"/>
+                <ComboBox fx:id="villeCombo" styleClass="combo-custom" maxWidth="430"/>
+            </VBox>
+
+            <HBox spacing="15">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="🔒 Mot de passe" styleClass="field-label"/>
+                    <PasswordField fx:id="passwordField" promptText="••••••••" styleClass="text-field-custom"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="🔒 Confirmer" styleClass="field-label"/>
+                    <PasswordField fx:id="confirmField" promptText="••••••••" styleClass="text-field-custom"/>
+                </VBox>
+            </HBox>
+
+            <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" maxWidth="430"/>
+            <Label fx:id="successLabel" styleClass="success-label" wrapText="true" maxWidth="430"/>
+
+            <Button text="Créer mon compte" styleClass="btn-primary" onAction="#handleRegister" maxWidth="430"/>
+
+            <HBox alignment="CENTER" spacing="8">
+                <Label text="Déjà un compte ?" styleClass="link-hint"/>
+                <Button text="Se connecter" styleClass="btn-link" onAction="#handleGoLogin"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</StackPane>

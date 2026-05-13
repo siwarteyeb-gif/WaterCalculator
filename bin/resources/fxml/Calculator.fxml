@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.watercalculator.controllers.CalculatorController"
+            styleClass="root-pane"
+            prefWidth="1000" prefHeight="700">
+
+    <!-- TOP NAV -->
+    <top>
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="12" bottom="12" left="25" right="25"/></padding>
+            <Text text="💧 WaterCalculator" styleClass="nav-logo"/>
+            <Text text="/ Calculateur" styleClass="nav-sub"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="dashboardBtn" text="← Dashboard" styleClass="btn-nav" onAction="#handleDashboard"/>
+        </HBox>
+    </top>
+
+    <!-- MAIN -->
+    <center>
+        <VBox spacing="15">
+            <padding><Insets top="20" bottom="20" left="30" right="30"/></padding>
+
+            <Text text="🧮 Calculateur de Consommation d'Eau" styleClass="page-title"/>
+            <Text text="Sélectionnez un usage, entrez vos données et comparez aux normes OMS." styleClass="page-subtitle"/>
+
+            <Label fx:id="statusLabel" styleClass="status-label" wrapText="true"/>
+
+            <TabPane fx:id="tabPane" styleClass="tab-pane-custom">
+
+                <!-- ===== TAB DOUCHE ===== -->
+                <Tab text="🚿 Douche" closable="false">
+                    <HBox spacing="30">
+                        <padding><Insets top="25" bottom="25" left="25" right="25"/></padding>
+
+                        <!-- Form -->
+                        <VBox spacing="18" prefWidth="380" styleClass="calc-form-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Paramètres de la douche" styleClass="form-section-title"/>
+
+                            <VBox spacing="6">
+                                <Label text="⏱️ Durée de la douche :" styleClass="field-label"/>
+                                <Slider fx:id="doucheSlider" min="1" max="30" value="8" blockIncrement="1"
+                                        showTickLabels="true" showTickMarks="true" majorTickUnit="5" styleClass="slider-custom"/>
+                                <Label fx:id="doucheMinLabel" text="8 min" styleClass="slider-value-label"/>
+                            </VBox>
+
+                            <HBox spacing="10">
+                                <Button text="🔢 Calculer" styleClass="btn-primary" onAction="#handleCalculerDouche"/>
+                                <Button fx:id="doucheSaveBtn" text="💾 Sauvegarder" styleClass="btn-success"
+                                        onAction="#handleSauvegarderDouche" disable="true"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- Results -->
+                        <VBox spacing="12" prefWidth="380" styleClass="calc-result-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Résultats" styleClass="form-section-title"/>
+                            <Text fx:id="doucheResultText" text="—" styleClass="result-value"/>
+                            <Separator/>
+                            <Text text="Comparaison OMS :" styleClass="result-label"/>
+                            <Text fx:id="doucheOMSText" text="—" styleClass="result-oms" wrappingWidth="330"/>
+                            <Separator/>
+                            <Text text="💡 Recommandation :" styleClass="result-label"/>
+                            <Text fx:id="doucheRecoText" text="—" styleClass="result-reco" wrappingWidth="330"/>
+                        </VBox>
+                    </HBox>
+                </Tab>
+
+                <!-- ===== TAB VAISSELLE ===== -->
+                <Tab text="🍽️ Vaisselle" closable="false">
+                    <HBox spacing="30">
+                        <padding><Insets top="25" bottom="25" left="25" right="25"/></padding>
+
+                        <VBox spacing="18" prefWidth="380" styleClass="calc-form-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Paramètres de la vaisselle" styleClass="form-section-title"/>
+
+                            <VBox spacing="6">
+                                <Label text="👥 Nombre de personnes :" styleClass="field-label"/>
+                                <Spinner fx:id="vaissellePersonnesSpinner" styleClass="spinner-custom" prefWidth="150"/>
+                            </VBox>
+
+                            <CheckBox fx:id="vaisselleCheckBox" text="🫧 Utilisation d'un lave-vaisselle" styleClass="check-custom"/>
+
+                            <HBox spacing="10">
+                                <Button text="🔢 Calculer" styleClass="btn-primary" onAction="#handleCalculerVaisselle"/>
+                                <Button fx:id="vaisselleSaveBtn" text="💾 Sauvegarder" styleClass="btn-success"
+                                        onAction="#handleSauvegarderVaisselle" disable="true"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="12" prefWidth="380" styleClass="calc-result-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Résultats" styleClass="form-section-title"/>
+                            <Text fx:id="vaisselleResultText" text="—" styleClass="result-value"/>
+                            <Separator/>
+                            <Text text="Comparaison OMS :" styleClass="result-label"/>
+                            <Text fx:id="vaisselleOMSText" text="—" styleClass="result-oms" wrappingWidth="330"/>
+                            <Separator/>
+                            <Text text="💡 Recommandation :" styleClass="result-label"/>
+                            <Text fx:id="vaisselleRecoText" text="—" styleClass="result-reco" wrappingWidth="330"/>
+                        </VBox>
+                    </HBox>
+                </Tab>
+
+                <!-- ===== TAB ARROSAGE ===== -->
+                <Tab text="🌱 Arrosage" closable="false">
+                    <HBox spacing="30">
+                        <padding><Insets top="25" bottom="25" left="25" right="25"/></padding>
+
+                        <VBox spacing="18" prefWidth="380" styleClass="calc-form-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Paramètres d'arrosage" styleClass="form-section-title"/>
+
+                            <VBox spacing="6">
+                                <Label text="📐 Superficie (m²) :" styleClass="field-label"/>
+                                <TextField fx:id="arrosageSuperficieField" promptText="Ex : 50" styleClass="text-field-custom"/>
+                            </VBox>
+
+                            <VBox spacing="6">
+                                <Label text="⏱️ Durée d'arrosage (min) :" styleClass="field-label"/>
+                                <Spinner fx:id="arrosageDureeSpinner" styleClass="spinner-custom" prefWidth="150"/>
+                            </VBox>
+
+                            <HBox spacing="10">
+                                <Button text="🔢 Calculer" styleClass="btn-primary" onAction="#handleCalculerArrosage"/>
+                                <Button fx:id="arrosageSaveBtn" text="💾 Sauvegarder" styleClass="btn-success"
+                                        onAction="#handleSauvegarderArrosage" disable="true"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="12" prefWidth="380" styleClass="calc-result-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Résultats" styleClass="form-section-title"/>
+                            <Text fx:id="arrosageResultText" text="—" styleClass="result-value"/>
+                            <Separator/>
+                            <Text text="Comparaison OMS :" styleClass="result-label"/>
+                            <Text fx:id="arrosageOMSText" text="—" styleClass="result-oms" wrappingWidth="330"/>
+                            <Separator/>
+                            <Text text="💡 Recommandation :" styleClass="result-label"/>
+                            <Text fx:id="arrosageRecoText" text="—" styleClass="result-reco" wrappingWidth="330"/>
+                        </VBox>
+                    </HBox>
+                </Tab>
+
+                <!-- ===== TAB AGRICULTURE ===== -->
+                <Tab text="🌾 Agriculture" closable="false">
+                    <HBox spacing="30">
+                        <padding><Insets top="25" bottom="25" left="25" right="25"/></padding>
+
+                        <VBox spacing="18" prefWidth="380" styleClass="calc-form-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Paramètres agricoles" styleClass="form-section-title"/>
+
+                            <VBox spacing="6">
+                                <Label text="📏 Superficie (hectares) :" styleClass="field-label"/>
+                                <TextField fx:id="agricultureHectaresField" promptText="Ex : 2.5" styleClass="text-field-custom"/>
+                            </VBox>
+
+                            <VBox spacing="6">
+                                <Label text="🌿 Type de culture :" styleClass="field-label"/>
+                                <ComboBox fx:id="agricultureCultureCombo" styleClass="combo-custom" prefWidth="200"/>
+                            </VBox>
+
+                            <HBox spacing="10">
+                                <Button text="🔢 Calculer" styleClass="btn-primary" onAction="#handleCalculerAgriculture"/>
+                                <Button fx:id="agricultureSaveBtn" text="💾 Sauvegarder" styleClass="btn-success"
+                                        onAction="#handleSauvegarderAgriculture" disable="true"/>
+                            </HBox>
+                        </VBox>
+
+                        <VBox spacing="12" prefWidth="380" styleClass="calc-result-card">
+                            <padding><Insets top="20" bottom="20" left="20" right="20"/></padding>
+                            <Text text="Résultats" styleClass="form-section-title"/>
+                            <Text fx:id="agricultureResultText" text="—" styleClass="result-value"/>
+                            <Separator/>
+                            <Text text="Comparaison OMS :" styleClass="result-label"/>
+                            <Text fx:id="agricultureOMSText" text="—" styleClass="result-oms" wrappingWidth="330"/>
+                            <Separator/>
+                            <Text text="💡 Recommandation :" styleClass="result-label"/>
+                            <Text fx:id="agricultureRecoText" text="—" styleClass="result-reco" wrappingWidth="330"/>
+                        </VBox>
+                    </HBox>
+                </Tab>
+            </TabPane>
+        </VBox>
+    </center>
+</BorderPane>
